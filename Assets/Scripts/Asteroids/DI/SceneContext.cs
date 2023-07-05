@@ -7,7 +7,7 @@ namespace Asteroids.DI
 {
     public class SceneContext : MonoBehaviour, ISceneContext
     {
-        [SerializeField] private List<GameObject> _autoInject;
+        [SerializeField] private List<GameObject> _toInject;
 
         private IObjectResolver _container;
 
@@ -19,15 +19,15 @@ namespace Asteroids.DI
         public void Initialize(IObjectResolver container)
         {
             _container = container;
-            AutoInjectAll();
+            InjectAll();
         }
         
-        private void AutoInjectAll()
+        private void InjectAll()
         {
-            if (_autoInject == null)
+            if (_toInject == null)
                 return;
 
-            foreach (var target in _autoInject)
+            foreach (var target in _toInject)
             {
                 if (target != null)
                 {

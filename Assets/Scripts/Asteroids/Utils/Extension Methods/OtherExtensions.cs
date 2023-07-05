@@ -1,5 +1,6 @@
+using System;
 using System.Collections.Generic;
-using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace Asteroids.Utils.Extension_Methods
 {
@@ -25,6 +26,31 @@ namespace Asteroids.Utils.Extension_Methods
         {
             key = pair.Key;
             value = pair.Value;
+        }
+        
+        public static bool IsAssignableFromDefinition(this Type extendType, Type baseType, out Type[] genericTypes)
+        {
+            Type[] lastGenericType = null;
+            while (!baseType.IsAssignableFrom(extendType))
+            {
+                if (extendType == typeof(object))
+                {
+                    genericTypes = Array.Empty<Type>();
+                    return false;
+                }
+                if (extendType.IsGenericType && !extendType.IsGenericTypeDefinition)
+                {
+                    lastGenericType = extendType.GetGenericArguments();
+                    extendType = extendType.GetGenericTypeDefinition();
+                }
+                else
+                {
+                    extendType = extendType.BaseType;
+                }
+            }
+
+            genericTypes = lastGenericType;
+            return true;
         }
     }
 }
