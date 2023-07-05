@@ -10,6 +10,7 @@ namespace Asteroids.DI.Installers
         public void Install(IContainerBuilder builder)
         {
             builder.Register<MainMenuViewModel>(Lifetime.Singleton);
+            builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
         }
     }
 }

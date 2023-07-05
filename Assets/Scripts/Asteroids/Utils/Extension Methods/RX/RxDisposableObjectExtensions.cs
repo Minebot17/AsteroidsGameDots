@@ -15,7 +15,7 @@ namespace Asteroids.Utils.Extension_Methods.RX
 
         private readonly CompositeDisposable _disposables = new CompositeDisposable();
 
-        public virtual void Dispose()
+        public virtual void Dispose() // TODO: Check if VContainer is handle this
         {
             if (IsDisposed) return;
             IsDisposed = true;

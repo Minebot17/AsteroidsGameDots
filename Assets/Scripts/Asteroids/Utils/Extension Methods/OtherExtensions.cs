@@ -1,5 +1,10 @@
 using System;
 using System.Collections.Generic;
+using Asteroids.DI;
+using UnityEngine;
+using VContainer;
+using VContainer.Diagnostics;
+using VContainer.Unity;
 using Object = UnityEngine.Object;
 
 namespace Asteroids.Utils.Extension_Methods
@@ -51,6 +56,20 @@ namespace Asteroids.Utils.Extension_Methods
 
             genericTypes = lastGenericType;
             return true;
+        }
+
+        public static IObjectResolver BuildContainer(this IInstaller installer, ISceneContext sceneContext)
+        {
+            var contextObject = sceneContext as MonoBehaviour;
+            var builder = new ContainerBuilder
+            {
+                ApplicationOrigin = contextObject,
+                Diagnostics = VContainerSettings.DiagnosticsEnabled ? DiagnositcsContext.GetCollector(contextObject.name) : null,
+            };
+            installer.Install(builder);
+            builder.RegisterInstance(sceneContext).AsSelf();
+            EntryPointsBuilder.EnsureDispatcherRegistered(builder);
+            return builder.Build();
         }
     }
 }

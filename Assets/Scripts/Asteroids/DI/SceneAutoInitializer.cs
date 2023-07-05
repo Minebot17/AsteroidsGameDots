@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Reflection;
+using Asteroids.Utils.Extension_Methods;
 using UnityEngine;
-using VContainer;
-using VContainer.Diagnostics;
 using VContainer.Unity;
 using Logger = Asteroids.Utils.Logger;
 
@@ -37,15 +36,7 @@ namespace Asteroids.DI
             }
 
             var sceneContext = GetComponent<ISceneContext>();
-            var builder = new ContainerBuilder
-            {
-                ApplicationOrigin = this,
-                Diagnostics = VContainerSettings.DiagnosticsEnabled ? DiagnositcsContext.GetCollector(name) : null,
-            };
-            installer.Install(builder);
-            builder.RegisterInstance(sceneContext).AsSelf();
-            EntryPointsBuilder.EnsureDispatcherRegistered(builder);
-            sceneContext.Initialize(builder.Build());
+            sceneContext.Initialize(installer.BuildContainer(sceneContext));
         }
     }
 }
