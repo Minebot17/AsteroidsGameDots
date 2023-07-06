@@ -13,7 +13,7 @@ namespace Asteroids.ECS.Systems
         private EntityQuery _playerInputQuery;
         private GameInput _gameInput;
 
-        private float2 _playerMove;
+        private float3 _playerMove;
         private bool _playerFire;
         private bool _playerAltFire;
 
@@ -45,7 +45,7 @@ namespace Asteroids.ECS.Systems
             _playerAltFire = false;
         }
 
-        public void OnMove(InputAction.CallbackContext context) => _playerMove = context.ReadValue<Vector2>();
+        public void OnMove(InputAction.CallbackContext context) => _playerMove = (Vector3) context.ReadValue<Vector2>();
         public void OnFire(InputAction.CallbackContext context) { if (context.started) _playerFire = true; }
         public void OnAltFire(InputAction.CallbackContext context) { if (context.started) _playerAltFire = true; }
         

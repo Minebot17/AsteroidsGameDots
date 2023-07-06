@@ -1,5 +1,4 @@
 ﻿using System;
-using Asteroids.Utils;
 using Unity.Entities;
 
 namespace Asteroids.ECS.Components
@@ -10,5 +9,6 @@ namespace Asteroids.ECS.Components
         public float PlayerMovingSpeed;
         public float PlayerRotationSpeed;
         public float PlayerDragModifier;
+        public float PlayerAngularDragModifier;
     }
 }

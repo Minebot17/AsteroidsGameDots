@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: GameSettingsAsset
   m_EditorClassIdentifier: 
   _gameSettingsData:
-    PlayerMovingSpeed: 0
-    PlayerRotationSpeed: 0
-    PlayerDragModifier: 0
+    PlayerMovingSpeed: 0.3
+    PlayerRotationSpeed: 0.03
+    PlayerDragModifier: 1
+    PlayerAngularDragModifier: 1

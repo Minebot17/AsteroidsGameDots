@@ -5,7 +5,7 @@ namespace Asteroids.ECS.Components
 {
     public struct PlayerInputData : IComponentData
     {
-        public float2 Move;
+        public float3 Move;
         public bool IsFire;
         public bool IsAltFire;
     }
