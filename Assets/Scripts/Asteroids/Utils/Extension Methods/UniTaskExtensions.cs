@@ -1,5 +1,6 @@
 using System;
 using Cysharp.Threading.Tasks;
+using Unity.Entities;
 
 namespace Asteroids.Utils.Extension_Methods
 {
@@ -9,6 +10,12 @@ namespace Asteroids.Utils.Extension_Methods
         {
             await UniTask.SwitchToMainThread();
             callback();
+        }
+
+        public static async UniTask WaitUntilWorldInited()
+        {
+            await UniTask.WaitUntil(() =>
+                World.DefaultGameObjectInjectionWorld != null && World.DefaultGameObjectInjectionWorld.IsCreated);
         }
     }
 }

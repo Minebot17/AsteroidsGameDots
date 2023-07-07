@@ -17,3 +17,4 @@ MonoBehaviour:
     PlayerRotationSpeed: 0.03
     PlayerDragModifier: 1
     PlayerAngularDragModifier: 1
+    TeleporterBorderOffset: 2

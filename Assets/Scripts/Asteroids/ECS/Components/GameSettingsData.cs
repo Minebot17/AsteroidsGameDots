@@ -10,5 +10,7 @@ namespace Asteroids.ECS.Components
         public float PlayerRotationSpeed;
         public float PlayerDragModifier;
         public float PlayerAngularDragModifier;
+
+        public float TeleporterBorderOffset;
     }
 }
