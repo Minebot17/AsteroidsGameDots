@@ -31,8 +31,8 @@ namespace Asteroids.ECS.Systems
     public partial struct TeleporterJob : IJobEntity
     {
         public MapSizeData MapSize;
-        
-        public void Execute(ref LocalTransform transform)
+
+        private void Execute(ref LocalTransform transform)
         {
             var pos = transform.Position;
             if (pos.x < MapSize.MinBorder.x)

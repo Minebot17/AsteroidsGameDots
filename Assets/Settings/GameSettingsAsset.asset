@@ -14,7 +14,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _gameSettingsData:
     PlayerMovingSpeed: 0.3
-    PlayerRotationSpeed: 0.03
+    PlayerRotationSpeed: 0.05
     PlayerDragModifier: 1
     PlayerAngularDragModifier: 1
     TeleporterBorderOffset: 2
+    BigAsteroidsVelocity: 3
+    BigAsteroidsTorque: 0.1
+    BigAsteroidsFragmentsCount: 3
+    MaxBigAsteroidsCount: 10
+    SpawnBigAsteroidsPeriod: 1

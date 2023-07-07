@@ -12,5 +12,11 @@ namespace Asteroids.ECS.Components
         public float PlayerAngularDragModifier;
 
         public float TeleporterBorderOffset;
+        
+        public float BigAsteroidsVelocity;
+        public float BigAsteroidsTorque;
+        public float BigAsteroidsFragmentsCount;
+        public float MaxBigAsteroidsCount;
+        public float SpawnBigAsteroidsPeriod;
     }
 }
