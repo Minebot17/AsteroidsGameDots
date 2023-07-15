@@ -48,7 +48,8 @@ namespace Asteroids.ECS.Systems
         public void OnMove(InputAction.CallbackContext context) => _playerMove = (Vector3) context.ReadValue<Vector2>();
         public void OnFire(InputAction.CallbackContext context) { if (context.started) _playerFire = true; }
         public void OnAltFire(InputAction.CallbackContext context) { if (context.started) _playerAltFire = true; }
-        
+        public void OnPause(InputAction.CallbackContext context) { }
+
         protected override void OnStartRunning() => _gameInput.Enable();
 
         protected override void OnStopRunning() => _gameInput.Disable();

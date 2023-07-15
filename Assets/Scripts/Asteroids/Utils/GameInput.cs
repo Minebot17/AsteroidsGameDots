@@ -55,6 +55,15 @@ namespace Asteroids.Utils
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Pause"",
+                    ""type"": ""Button"",
+                    ""id"": ""a42e5c59-f832-4dcf-9882-f52b8c9b4a5d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -275,6 +284,17 @@ namespace Asteroids.Utils
                     ""processors"": """",
                     ""groups"": ""XR"",
                     ""action"": ""AltFire"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bcad64d1-eb52-4142-9721-0c9d96ad775c"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Pause"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -865,6 +885,7 @@ namespace Asteroids.Utils
             m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
             m_Player_Fire = m_Player.FindAction("Fire", throwIfNotFound: true);
             m_Player_AltFire = m_Player.FindAction("AltFire", throwIfNotFound: true);
+            m_Player_Pause = m_Player.FindAction("Pause", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -941,6 +962,7 @@ namespace Asteroids.Utils
         private readonly InputAction m_Player_Move;
         private readonly InputAction m_Player_Fire;
         private readonly InputAction m_Player_AltFire;
+        private readonly InputAction m_Player_Pause;
         public struct PlayerActions
         {
             private @GameInput m_Wrapper;
@@ -948,6 +970,7 @@ namespace Asteroids.Utils
             public InputAction @Move => m_Wrapper.m_Player_Move;
             public InputAction @Fire => m_Wrapper.m_Player_Fire;
             public InputAction @AltFire => m_Wrapper.m_Player_AltFire;
+            public InputAction @Pause => m_Wrapper.m_Player_Pause;
             public InputActionMap Get() { return m_Wrapper.m_Player; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -966,6 +989,9 @@ namespace Asteroids.Utils
                 @AltFire.started += instance.OnAltFire;
                 @AltFire.performed += instance.OnAltFire;
                 @AltFire.canceled += instance.OnAltFire;
+                @Pause.started += instance.OnPause;
+                @Pause.performed += instance.OnPause;
+                @Pause.canceled += instance.OnPause;
             }
 
             private void UnregisterCallbacks(IPlayerActions instance)
@@ -979,6 +1005,9 @@ namespace Asteroids.Utils
                 @AltFire.started -= instance.OnAltFire;
                 @AltFire.performed -= instance.OnAltFire;
                 @AltFire.canceled -= instance.OnAltFire;
+                @Pause.started -= instance.OnPause;
+                @Pause.performed -= instance.OnPause;
+                @Pause.canceled -= instance.OnPause;
             }
 
             public void RemoveCallbacks(IPlayerActions instance)
@@ -1164,6 +1193,7 @@ namespace Asteroids.Utils
             void OnMove(InputAction.CallbackContext context);
             void OnFire(InputAction.CallbackContext context);
             void OnAltFire(InputAction.CallbackContext context);
+            void OnPause(InputAction.CallbackContext context);
         }
         public interface IUIActions
         {

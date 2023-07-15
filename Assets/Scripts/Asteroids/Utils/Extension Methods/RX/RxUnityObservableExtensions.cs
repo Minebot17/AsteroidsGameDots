@@ -40,5 +40,14 @@ namespace Asteroids.Utils.Extension_Methods.RX
             
             Logger.DebugLogError(null, "BindableView wasn't found in View's GO");
         }
+
+        public static void BindPanel<T, TPanel>(this T panel, TPanel viewModel, CompositeDisposable disposables) 
+            where T : BindableView<TPanel>
+            where TPanel : IPanelViewModel
+        {
+            viewModel.IsOpened
+                .Subscribe(value => panel.gameObject.SetActive(value))
+                .AddTo(disposables);
+        }
     }
 }

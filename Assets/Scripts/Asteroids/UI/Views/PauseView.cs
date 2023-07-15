@@ -1,5 +1,6 @@
 ﻿using Asteroids.UI.Core;
 using Asteroids.UI.ViewModels;
+using Asteroids.Utils.Extension_Methods.RX;
 using TMPro;
 using UniRx;
 using UnityEngine;
@@ -14,6 +15,7 @@ namespace Asteroids.UI.Views
         
         protected override void OnBind(CompositeDisposable disposables)
         {
+            this.BindPanel(ViewModel, disposables);
             ViewModel.Score.Subscribe(OnScoreChanged).AddTo(disposables);
             _continueButton.OnClickAsObservable().Subscribe(OnContinue).AddTo(this);
         }

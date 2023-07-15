@@ -3,6 +3,7 @@
     public enum PanelType
     {
         Pause,
-        GameOver
+        GameOver,
+        Hud
     }
 }
