@@ -1,6 +1,8 @@
 ﻿using System;
+using Asteroids.UI.Core;
 using UniRx;
 using UnityEngine;
+using VContainer;
 
 namespace Asteroids.Utils.Extension_Methods.RX
 {
@@ -20,5 +22,23 @@ namespace Asteroids.Utils.Extension_Methods.RX
         )
             where TResult : Component =>
             observable.Select(c => c.GetComponentInChildren<TResult>(includeInactive));
+        
+        public static void FindAndBindViewModelFor(this GameObject go, IObjectResolver container)
+        {
+            var components = go.GetComponents<Component>();
+            foreach (var component in components)
+            {
+                var viewType = component.GetType();
+                if (viewType.IsAssignableFromDefinition(typeof(BindableView<>), out var genericTypes))
+                {
+                    var actualViewModelType = genericTypes[0];
+                    var bindToMethod = viewType.GetMethod("BindTo", new[] { actualViewModelType });
+                    bindToMethod.Invoke(component, new [] { container.Resolve(actualViewModelType) }); // ignore disposable because already in scene context
+                    return;
+                }
+            }
+            
+            Logger.DebugLogError(null, "BindableView wasn't found in View's GO");
+        }
     }
 }

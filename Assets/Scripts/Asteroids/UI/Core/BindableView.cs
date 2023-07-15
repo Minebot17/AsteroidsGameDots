@@ -10,7 +10,7 @@ namespace Asteroids.UI.Core
 
         public TViewModel ViewModel => _viewModel.Value;
 
-        private readonly ReactiveProperty<TViewModel> _viewModel = new ReactiveProperty<TViewModel>();
+        private readonly ReactiveProperty<TViewModel> _viewModel = new();
 
         public IDisposable BindTo(TViewModel viewModel)
         {

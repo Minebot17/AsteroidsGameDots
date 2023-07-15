@@ -4,7 +4,7 @@ using VContainer;
 
 namespace Asteroids.UI.Core
 {
-    public class SingletonViewsBinder : MonoBehaviour
+    public class ChildrenSingletonViewsBinder : MonoBehaviour
     {
         private IObjectResolver _container;
 
@@ -16,7 +16,10 @@ namespace Asteroids.UI.Core
 
         private void Start()
         {
-            gameObject.FindAndBindViewModelFor(_container);
+            foreach (Transform child in transform)
+            {
+                child.gameObject.FindAndBindViewModelFor(_container);
+            }
         }
     }
 }

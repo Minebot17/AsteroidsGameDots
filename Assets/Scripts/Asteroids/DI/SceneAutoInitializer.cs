@@ -36,7 +36,7 @@ namespace Asteroids.DI
             }
 
             var sceneContext = GetComponent<ISceneContext>();
-            sceneContext.Initialize(installer.BuildContainer(sceneContext));
+            sceneContext.ManualInitialize(installer.BuildContainer(sceneContext));
         }
     }
 }

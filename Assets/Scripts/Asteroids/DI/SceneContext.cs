@@ -9,16 +9,19 @@ namespace Asteroids.DI
     {
         [SerializeField] private List<GameObject> _toInject;
 
-        private IObjectResolver _container;
-
         private void Awake()
         {
             ISceneContext.CurrentContext = this;
+
+            if (ISceneContext.Container != null)
+            {
+                InjectAll();
+            }
         }
 
-        public void Initialize(IObjectResolver container)
+        public void ManualInitialize(IObjectResolver container)
         {
-            _container = container;
+            ISceneContext.Container = container;
             InjectAll();
         }
         
@@ -31,7 +34,7 @@ namespace Asteroids.DI
             {
                 if (target != null)
                 {
-                    _container.InjectGameObject(target);
+                    ISceneContext.Container.InjectGameObject(target);
                 }
             }
         }

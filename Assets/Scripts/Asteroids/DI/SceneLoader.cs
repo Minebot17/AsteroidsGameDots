@@ -12,18 +12,19 @@ namespace Asteroids.DI
         {
             IObjectResolver container = null;
             await SceneManager.LoadSceneAsync("Loading");
-            await SceneManager.LoadSceneAsync(scene.ToString("G"), LoadSceneMode.Additive);
             await UniTask.RunOnThreadPool(() =>
             {
                 container = sceneInstaller.BuildContainer(ISceneContext.CurrentContext);
             });
             await UniTask.SwitchToMainThread();
-            ISceneContext.CurrentContext.Initialize(container);
+            ISceneContext.Container = container;
+            await SceneManager.LoadSceneAsync(scene.ToString("G"), LoadSceneMode.Additive);
             await SceneManager.UnloadSceneAsync("Loading");
         }
 
         public void LoadSceneWithoutDependencies(Scene scene)
         {
+            ISceneContext.Container = null;
             SceneManager.LoadScene(scene.ToString("G"));
         }
     }
