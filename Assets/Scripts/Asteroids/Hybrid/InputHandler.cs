@@ -1,40 +1,40 @@
-﻿using System;
-using Asteroids.ECS.Systems;
+﻿using Asteroids.ECS.Systems;
 using Asteroids.UI.Core;
 using Asteroids.Utils;
 using Asteroids.Utils.Extension_Methods;
+using Asteroids.Utils.Extension_Methods.RX;
+using Asteroids.Utils.Reflection;
+using UniRx;
 using Unity.Entities;
-using UnityEngine;
 using UnityEngine.InputSystem;
-using VContainer;
+using VContainer.Unity;
 
 namespace Asteroids.Hybrid
 {
-    public class InputManager : MonoBehaviour
+    [EntryPoint]
+    public class InputHandler : DisposableObject, IStartable
     {
-        private ISimulationToggler _simulationToggler;
-        private IPanelManager _panelManager;
+        private readonly ISimulationToggler _simulationToggler;
+        private readonly IPanelManager _panelManager;
+        
+        private GameInput _input;
 
-        [Inject]
-        public void Construct(ISimulationToggler simulationToggler, IPanelManager panelManager)
+        public InputHandler(ISimulationToggler simulationToggler, IPanelManager panelManager)
         {
             _simulationToggler = simulationToggler;
             _panelManager = panelManager;
         }
-        
-        private GameInput _input;
 
         public async void Start()
         {
             await UniTaskExtensions.WaitUntilWorldInited();
             _input = World.DefaultGameObjectInjectionWorld.GetExistingSystemManaged<InputGatheringSystem>().GameInput;
-            
-            _input.Player.Pause.performed += OnPauseClick;
-        }
 
-        private void OnDestroy()
-        {
-            _input.Player.Pause.performed -= OnPauseClick;
+            Observable.FromEvent<InputAction.CallbackContext>(
+                    c => _input.Player.Pause.performed += c,
+                    c => _input.Player.Pause.performed -= c)
+                .Subscribe(OnPauseClick)
+                .AddTo(this);
         }
 
         private void OnPauseClick(InputAction.CallbackContext context)

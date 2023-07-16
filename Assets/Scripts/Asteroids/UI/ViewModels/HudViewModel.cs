@@ -46,6 +46,18 @@ namespace Asteroids.UI.ViewModels
 
         private void OnUpdate(long next)
         {
+            try
+            {
+                if (!_entityManager.Exists(_playerEntity))
+                {
+                    return;
+                }
+            }
+            catch (ObjectDisposedException e)
+            {
+                return;
+            }
+
             var playerTransform = _entityManager.GetComponentData<LocalTransform>(_playerEntity);
             var playerVelocity = _entityManager.GetComponentData<PhysicsVelocity>(_playerEntity);
             var playerRotation = (int) math.degrees(playerTransform.Rotation.ToEuler().z);

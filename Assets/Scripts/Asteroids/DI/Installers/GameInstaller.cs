@@ -12,10 +12,16 @@ namespace Asteroids.DI.Installers
         {
             builder.Register<IPanelManager, PanelManager>(Lifetime.Singleton);
             builder.Register<ISimulationToggler, SimulationToggler>(Lifetime.Singleton);
+            builder.Register<ISceneLoader, SceneLoader>(Lifetime.Singleton);
 
             foreach (var type in typeof(SingletonViewModel).GetTypesWithAttribute())
             {
                 builder.Register(type, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+            }
+            
+            foreach (var type in typeof(EntryPoint).GetTypesWithAttribute())
+            {
+                builder.Register(type, Lifetime.Singleton).AsImplementedInterfaces();
             }
         }
     }

@@ -8,9 +8,9 @@ namespace Asteroids.Hybrid
 {
     public class SimulationToggler : ISimulationToggler
     {
-        private readonly Type[] _systemsToToggleTypes = new Type[]
+        private readonly Type[] _systemsToToggleTypes =
         {
-            
+            typeof(GameOverDetectionSystem)
         };
         
         private List<ComponentSystemBase> _systemsToToggle;

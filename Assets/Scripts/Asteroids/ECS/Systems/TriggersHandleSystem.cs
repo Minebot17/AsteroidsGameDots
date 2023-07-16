@@ -47,19 +47,33 @@ namespace Asteroids.ECS.Systems
             
             public void Execute(TriggerEvent triggerEvent)
             {
+                if (IsEntityCollided(triggerEvent, PlayerTagGroup, AsteroidTagGroup, 
+                        out var player, out var asteroid))
+                {
+                    Ecb.AddComponent<NeedToDestroyTag>(player);
+                }
+            }
+
+            private bool IsEntityCollided<T1, T2>(
+                TriggerEvent triggerEvent, 
+                ComponentLookup<T1> firstTag,
+                ComponentLookup<T2> secondTag,
+                out Entity firstTagEntity,
+                out Entity secondTagEntity)
+                where T1 : unmanaged, IComponentData
+                where T2 : unmanaged, IComponentData
+            {
                 var entityA = triggerEvent.EntityA;
                 var entityB = triggerEvent.EntityB;
-                var entityAIsPlayer = PlayerTagGroup.HasComponent(entityA);
-                var entityBIsPlayer = PlayerTagGroup.HasComponent(entityB);
-                var entityAIsAsteroid = AsteroidTagGroup.HasComponent(entityA);
-                var entityBIsAsteroid = AsteroidTagGroup.HasComponent(entityB);
-
-                if (entityAIsAsteroid && entityBIsPlayer
-                    || entityBIsAsteroid && entityAIsPlayer)
-                {
-                    var playerEntity = entityAIsPlayer ? entityA : entityB;
-                    Ecb.AddComponent<NeedToDestroyTag>(playerEntity);
-                }
+                var entityAIsTag1 = firstTag.HasComponent(entityA);
+                var entityBIsTag1 = firstTag.HasComponent(entityB);
+                var entityAIsTag2 = secondTag.HasComponent(entityA);
+                var entityBIsTag2 = secondTag.HasComponent(entityB);
+                var isCollided = entityAIsTag1 && entityBIsTag2 || entityAIsTag2 && entityBIsTag1;
+                
+                firstTagEntity = isCollided ? (entityAIsTag1 ? entityA : entityB) : new Entity();
+                secondTagEntity = isCollided ? (entityAIsTag2 ? entityA : entityB) : new Entity();
+                return isCollided;
             }
         }
     }
