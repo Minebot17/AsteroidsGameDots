@@ -3011,6 +3011,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6843128c41b3441997b9e01cce4b3566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _scoreText: {fileID: 4213984711159195094}
+  _positionXText: {fileID: 4213984711188060039}
+  _positionYText: {fileID: 4213984710564765202}
+  _angleText: {fileID: 4213984711416007836}
+  _speedText: {fileID: 4213984711393054084}
 --- !u!1 &4213984712231840760
 GameObject:
   m_ObjectHideFlags: 0

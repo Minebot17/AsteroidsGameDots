@@ -17,5 +17,11 @@ namespace Asteroids.Utils.Extension_Methods
             await UniTask.WaitUntil(() =>
                 World.DefaultGameObjectInjectionWorld != null && World.DefaultGameObjectInjectionWorld.IsCreated);
         }
+
+        public static async UniTask<Entity> WaitUntilSingletonEntityCreated(this EntityQuery entityQuery)
+        {
+            await UniTask.WaitUntil(() => entityQuery.CalculateEntityCount() != 0);
+            return entityQuery.GetSingletonEntity();
+        }
     }
 }
