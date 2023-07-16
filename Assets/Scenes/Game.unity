@@ -1209,6 +1209,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1243405190}
   - component: {fileID: 1243405191}
+  - component: {fileID: 1243405192}
   m_Layer: 5
   m_Name: Panels
   m_TagString: Untagged
@@ -1251,6 +1252,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3d2f8ea70144ae1bdaab4d15345f40e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1243405192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1243405189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e10e9d26aba4ac190410aa1a538122a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _panelsToEnableOnStart: 02000000
 --- !u!1 &1260731016
 GameObject:
   m_ObjectHideFlags: 0
@@ -2020,6 +2034,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2136880417}
+  - component: {fileID: 2136880418}
   m_Layer: 5
   m_Name: GameEndPanel
   m_TagString: Untagged
@@ -2049,6 +2064,20 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 300, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &2136880418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2136880416}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: efbf9487816747efa2c1f7716d207135, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scoreText: {fileID: 463145858}
+  _restartButton: {fileID: 1766072615}
 --- !u!222 &4213984710564765201
 CanvasRenderer:
   m_ObjectHideFlags: 0

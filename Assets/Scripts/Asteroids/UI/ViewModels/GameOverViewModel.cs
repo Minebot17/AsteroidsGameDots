@@ -7,21 +7,21 @@ using UniRx;
 namespace Asteroids.UI.ViewModels
 {
     [SingletonViewModel]
-    public class PauseViewModel : DisposableObject, IPanelViewModel
+    public class GameOverViewModel : DisposableObject, IPanelViewModel
     {
         private readonly ISimulationToggler _simulationToggler;
         
-        public ReactiveCommand ContinueCommand { get; } = new();
+        public ReactiveCommand RestartCommand { get; } = new();
 
-        public PanelType PanelType => PanelType.Pause;
+        public PanelType PanelType => PanelType.GameOver;
         public IReactiveProperty<bool> IsOpened { get; } = new ReactiveProperty<bool>();
         public IReactiveProperty<int> Score { get; } = new ReactiveProperty<int>();
-
-        public PauseViewModel(ISimulationToggler simulationToggler)
+        
+        public GameOverViewModel(ISimulationToggler simulationToggler)
         {
             _simulationToggler = simulationToggler;
             
-            ContinueCommand.Subscribe(OnContinue).AddTo(this);
+            RestartCommand.Subscribe(OnRestart).AddTo(this);
             IsOpened.Subscribe(IsOpenedChanged).AddTo(this);
         }
 
@@ -30,10 +30,10 @@ namespace Asteroids.UI.ViewModels
             _simulationToggler.ToggleSimulation(!isOpened);
         }
 
-        private void OnContinue(Unit _)
+        private void OnRestart(Unit _)
         {
             IsOpened.Value = false;
+            // TODO restart
         }
     }
-    
 }

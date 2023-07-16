@@ -1,11 +1,13 @@
 ﻿using Asteroids.DI;
 using Asteroids.DI.Installers;
 using Asteroids.Utils.Extension_Methods.RX;
+using Asteroids.Utils.Reflection;
 using UniRx;
 using UnityEngine;
 
 namespace Asteroids.UI.ViewModels
 {
+    [SingletonViewModel]
     public class MainMenuViewModel : DisposableObject
     {
         public ReactiveCommand PlayCommand { get; } = new();

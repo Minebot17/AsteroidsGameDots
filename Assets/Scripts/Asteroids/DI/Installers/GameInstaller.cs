@@ -1,6 +1,6 @@
 ﻿using Asteroids.Hybrid;
 using Asteroids.UI.Core;
-using Asteroids.UI.ViewModels;
+using Asteroids.Utils.Reflection;
 using VContainer;
 using VContainer.Unity;
 
@@ -12,9 +12,11 @@ namespace Asteroids.DI.Installers
         {
             builder.Register<IPanelManager, PanelManager>(Lifetime.Singleton);
             builder.Register<ISimulationToggler, SimulationToggler>(Lifetime.Singleton);
-            
-            builder.Register<PauseViewModel>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
-            builder.Register<HudViewModel>(Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+
+            foreach (var type in typeof(SingletonViewModel).GetTypesWithAttribute())
+            {
+                builder.Register(type, Lifetime.Singleton).AsImplementedInterfaces().AsSelf();
+            }
         }
     }
 }
