@@ -23,3 +23,8 @@ MonoBehaviour:
     BigAsteroidsFragmentsCount: 3
     MaxBigAsteroidsCount: 10
     SpawnBigAsteroidsPeriod: 1
+    BulletFireCooldown: 0.1
+    BulletLifeDuration: 2
+    BulletVelocity: 10
+    ScoreBigAsteroid: 5
+    ScoreSmallAsteroid: 2

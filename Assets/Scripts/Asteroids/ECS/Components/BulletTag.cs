@@ -2,7 +2,7 @@
 
 namespace Asteroids.ECS.Components
 {
-    public class BulletTag : IComponentData
+    public struct BulletTag : IComponentData
     {
         
     }

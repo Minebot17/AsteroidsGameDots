@@ -18,5 +18,12 @@ namespace Asteroids.ECS.Components
         public float BigAsteroidsFragmentsCount;
         public float MaxBigAsteroidsCount;
         public float SpawnBigAsteroidsPeriod;
+
+        public float BulletFireCooldown;
+        public float BulletLifeDuration;
+        public float BulletVelocity;
+
+        public int ScoreBigAsteroid;
+        public int ScoreSmallAsteroid;
     }
 }
