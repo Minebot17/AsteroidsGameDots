@@ -44,7 +44,7 @@ namespace Asteroids.ECS.Systems
                 state.EntityManager.SetComponentData(bigAsteroidEntity, new PhysicsVelocity
                 {
                     Linear = rnd.ValueRW.Random.NextFloat3(new float3(-1, -1, 0), new float3(1, 1, 0)) * spawner.ValueRO.StartVelocity,
-                    Angular = new float3(0, 0, rnd.ValueRW.Random.NextBool() ? -1 : 1 * spawner.ValueRO.StartTorque)
+                    Angular = new float3(0, 0, (rnd.ValueRW.Random.NextBool() ? -1 : 1) * spawner.ValueRO.StartTorque)
                 });
             }
         }

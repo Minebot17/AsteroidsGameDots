@@ -267,9 +267,9 @@ MonoBehaviour:
     y: 0
     z: 0
   m_PrimitiveSize:
-    x: 2.4
-    y: 2.4
-    z: 2.4
+    x: 2.2
+    y: 2.2
+    z: 2.2
   m_PrimitiveOrientation:
     Value:
       x: 0
@@ -277,15 +277,15 @@ MonoBehaviour:
       z: 0
     RotationOrder: 4
   m_Capsule:
-    Height: 2.4
-    Radius: 1.2
+    Height: 2.2
+    Radius: 1.1
     Axis: 2
   m_Cylinder:
-    Height: 2.4
-    Radius: 1.2
+    Height: 2.2
+    Radius: 1.1
     Axis: 2
   m_CylinderSideCount: 20
-  m_SphereRadius: 1.2
+  m_SphereRadius: 1.1
   m_MinimumSkinnedVertexWeight: 0.1
   m_ConvexHullGenerationParameters:
     m_SimplificationTolerance: 0.015
@@ -459,6 +459,52 @@ MonoBehaviour:
   m_EnableSolverStabilizationHeuristic: 0
   m_MultiThreaded: 1
   m_SynchronizeCollisionWorld: 0
+--- !u!1 &1040617527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1040617529}
+  - component: {fileID: 1040617528}
+  m_Layer: 0
+  m_Name: AsteroidCrackingSettings
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1040617528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040617527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e302897f274c410b83ea579d0fe3df85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GameSettingsAsset: {fileID: 11400000, guid: 4f6dfe9297410bc41afb708d751d1522, type: 2}
+  SmallAsteroidPrefab: {fileID: 2323396168941218391, guid: 1c85f815a8a0a8140a0b67f295e116d8, type: 3}
+--- !u!4 &1040617529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1040617527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1470230206
 GameObject:
   m_ObjectHideFlags: 0
@@ -516,7 +562,7 @@ GameObject:
   - component: {fileID: 1770089031}
   - component: {fileID: 1770089030}
   m_Layer: 0
-  m_Name: PlayerWeapon
+  m_Name: PlayerWeaponSettings
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

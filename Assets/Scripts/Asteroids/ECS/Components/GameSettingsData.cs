@@ -15,7 +15,7 @@ namespace Asteroids.ECS.Components
         
         public float BigAsteroidsVelocity;
         public float BigAsteroidsTorque;
-        public float BigAsteroidsFragmentsCount;
+        public int BigAsteroidsFragmentsCount;
         public float MaxBigAsteroidsCount;
         public float SpawnBigAsteroidsPeriod;
 

@@ -28,6 +28,7 @@ namespace Asteroids.ECS.Systems
             {
                 PlayerTagGroup = SystemAPI.GetComponentLookup<PlayerTag>(),
                 AsteroidTagGroup = SystemAPI.GetComponentLookup<AsteroidTag>(),
+                SmallAsteroidTagGroup = SystemAPI.GetComponentLookup<SmallAsteroidTag>(),
                 BulletTagGroup = SystemAPI.GetComponentLookup<BulletTag>(),
                 Ecb = ecb
             }.Schedule(simulation.ValueRW, state.Dependency);
@@ -44,6 +45,7 @@ namespace Asteroids.ECS.Systems
         {
             [ReadOnly] public ComponentLookup<PlayerTag> PlayerTagGroup;
             [ReadOnly] public ComponentLookup<AsteroidTag> AsteroidTagGroup;
+            [ReadOnly] public ComponentLookup<SmallAsteroidTag> SmallAsteroidTagGroup;
             [ReadOnly] public ComponentLookup<BulletTag> BulletTagGroup;
             public EntityCommandBuffer Ecb;
             
@@ -52,11 +54,19 @@ namespace Asteroids.ECS.Systems
                 Entity entityA;
                 Entity entityB;
                 if (IsEntityCollided(triggerEvent, PlayerTagGroup, AsteroidTagGroup, 
+                        out entityA, out entityB)
+                    || IsEntityCollided(triggerEvent, PlayerTagGroup, SmallAsteroidTagGroup,
                         out entityA, out entityB))
                 {
                     Ecb.AddComponent<NeedToDestroyTag>(entityA);
                 }
                 else if (IsEntityCollided(triggerEvent, AsteroidTagGroup, BulletTagGroup,
+                             out entityA, out entityB))
+                {
+                    Ecb.AddComponent<NeedToCrackAsteroidTag>(entityA);
+                    Ecb.AddComponent<NeedToDestroyTag>(entityB);
+                }
+                else if (IsEntityCollided(triggerEvent, SmallAsteroidTagGroup, BulletTagGroup,
                              out entityA, out entityB))
                 {
                     Ecb.AddComponent<NeedToDestroyTag>(entityA);

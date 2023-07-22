@@ -37,7 +37,7 @@ namespace Asteroids.ECS.Systems
             public EntityCommandBuffer.ParallelWriter Ecb;
             public float TimeElapsed;
             
-            public void Execute([ChunkIndexInQuery] int chunkIndex, ref NeedToDestroyAfterTimeData needToDestroyAfterTimeData, Entity e)
+            public void Execute([ChunkIndexInQuery] int chunkIndex, NeedToDestroyAfterTimeData needToDestroyAfterTimeData, Entity e)
             {
                 if (needToDestroyAfterTimeData.TimeWhenNeedToDestroy < TimeElapsed)
                 {
