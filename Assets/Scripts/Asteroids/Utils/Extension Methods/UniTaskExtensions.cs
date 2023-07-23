@@ -23,5 +23,11 @@ namespace Asteroids.Utils.Extension_Methods
             await UniTask.WaitUntil(() => entityQuery.CalculateEntityCount() != 0);
             return entityQuery.GetSingletonEntity();
         }
+        
+        public static async UniTask<T> WaitUntilSingletonCreated<T>(this EntityQuery entityQuery) where T : unmanaged, IComponentData
+        {
+            await UniTask.WaitUntil(() => entityQuery.CalculateEntityCount() != 0);
+            return entityQuery.GetSingleton<T>();
+        }
     }
 }

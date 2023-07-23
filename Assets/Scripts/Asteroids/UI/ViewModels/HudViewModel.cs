@@ -23,7 +23,7 @@ namespace Asteroids.UI.ViewModels
         public IReactiveProperty<int> PositionY { get; } = new ReactiveProperty<int>();
         public IReactiveProperty<int> Angle { get; } = new ReactiveProperty<int>();
         public IReactiveProperty<int> Speed { get; } = new ReactiveProperty<int>();
-
+        
         private EntityManager _entityManager;
         private Entity _playerEntity;
 
