@@ -582,6 +582,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   GameSettingAsset: {fileID: 11400000, guid: 4f6dfe9297410bc41afb708d751d1522, type: 2}
   BulletPrefab: {fileID: 4859941944865283664, guid: 13ecb1d8392703340ad0b1b424cc75b4, type: 3}
+  LaserPrefab: {fileID: 5535594693158518715, guid: c2c2f70d9dff0414aad47e8441bc03ff, type: 3}
 --- !u!4 &1770089031
 Transform:
   m_ObjectHideFlags: 0

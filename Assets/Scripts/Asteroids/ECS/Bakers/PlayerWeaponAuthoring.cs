@@ -9,6 +9,7 @@ namespace Asteroids.ECS.Bakers
     {
         public GameSettingAsset GameSettingAsset;
         public GameObject BulletPrefab;
+        public GameObject LaserPrefab;
         
         public class PlayerWeaponBaker : Baker<PlayerWeaponAuthoring>
         {
@@ -21,6 +22,13 @@ namespace Asteroids.ECS.Bakers
                     BulletFireCooldown = authoring.GameSettingAsset.GameSettingsData.BulletFireCooldown,
                     BulletLifeDuration = authoring.GameSettingAsset.GameSettingsData.BulletLifeDuration,
                     BulletVelocity = authoring.GameSettingAsset.GameSettingsData.BulletVelocity,
+                    
+                    LaserPrefab = GetEntity(authoring.LaserPrefab, TransformUsageFlags.Dynamic),
+                    LaserFireCooldown = authoring.GameSettingAsset.GameSettingsData.LaserFireCooldown,
+                    LaserLifeDuration = authoring.GameSettingAsset.GameSettingsData.LaserLifeDuration,
+                    LaserMaxCharges = authoring.GameSettingAsset.GameSettingsData.LaserMaxCharges,
+                    LaserChargeCooldown = authoring.GameSettingAsset.GameSettingsData.LaserChargeCooldown,
+                    LaserCurrentCharges = authoring.GameSettingAsset.GameSettingsData.LaserMaxCharges
                 });
             }
         }

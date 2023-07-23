@@ -22,6 +22,11 @@ namespace Asteroids.ECS.Components
         public float BulletFireCooldown;
         public float BulletLifeDuration;
         public float BulletVelocity;
+        
+        public float LaserFireCooldown;
+        public float LaserChargeCooldown;
+        public float LaserLifeDuration;
+        public int LaserMaxCharges;
 
         public int ScoreBigAsteroid;
         public int ScoreSmallAsteroid;

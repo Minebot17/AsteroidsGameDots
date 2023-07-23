@@ -49,6 +49,41 @@ namespace Asteroids.ECS.Systems
                 weaponData.ValueRW.BulletFireNextTime =
                     (float) SystemAPI.Time.ElapsedTime + weaponData.ValueRO.BulletFireCooldown;
             }
+            else if (playerInputData.IsAltFire 
+                     && weaponData.ValueRO.LaserFireNextTime < SystemAPI.Time.ElapsedTime
+                     && weaponData.ValueRO.LaserCurrentCharges > 0)
+            {
+                var laserEntity = state.EntityManager.Instantiate(weaponData.ValueRO.LaserPrefab);
+                state.EntityManager.SetComponentData(laserEntity, new LocalTransform
+                {
+                    Position = playerTransform.Position + playerTransform.Up() * SpawnWeaponsOffset,
+                    Rotation = playerTransform.Rotation,
+                    Scale = 1f
+                });
+                state.EntityManager.SetComponentData(laserEntity, new NeedToDestroyAfterTimeData
+                {
+                    TimeWhenNeedToDestroy = (float) SystemAPI.Time.ElapsedTime + weaponData.ValueRO.LaserLifeDuration
+                });
+                
+                weaponData.ValueRW.LaserFireNextTime = 
+                    (float) SystemAPI.Time.ElapsedTime + weaponData.ValueRO.LaserFireCooldown;
+
+                if (weaponData.ValueRO.LaserMaxCharges == weaponData.ValueRO.LaserCurrentCharges)
+                {
+                    weaponData.ValueRW.LaserChargeNextTime =
+                        (float) SystemAPI.Time.ElapsedTime + weaponData.ValueRO.LaserChargeCooldown;
+                }
+                
+                weaponData.ValueRW.LaserCurrentCharges--;
+            }
+
+            if (weaponData.ValueRO.LaserMaxCharges > weaponData.ValueRO.LaserCurrentCharges
+                && weaponData.ValueRO.LaserChargeNextTime < SystemAPI.Time.ElapsedTime)
+            {
+                weaponData.ValueRW.LaserCurrentCharges++;
+                weaponData.ValueRW.LaserChargeNextTime =
+                    (float) SystemAPI.Time.ElapsedTime + weaponData.ValueRO.LaserChargeCooldown;
+            }
         }
 
         [BurstCompile]

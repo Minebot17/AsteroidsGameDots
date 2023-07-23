@@ -1,5 +1,6 @@
 ﻿using Asteroids.ECS.Components;
 using Unity.Burst;
+using Unity.Collections;
 using Unity.Entities;
 using Unity.Transforms;
 
@@ -17,7 +18,14 @@ namespace Asteroids.ECS.Systems
         public void OnUpdate(ref SystemState state)
         {
             var mapSize = SystemAPI.GetSingleton<MapSizeData>();
-            new TeleporterJob {MapSize = mapSize}.ScheduleParallel();
+            new TeleporterJob
+            {
+                MapSize = mapSize,
+                AsteroidGroup = SystemAPI.GetComponentLookup<AsteroidTag>(),
+                SmallAsteroidGroup = SystemAPI.GetComponentLookup<SmallAsteroidTag>(),
+                PlayerGroup = SystemAPI.GetComponentLookup<PlayerTag>(),
+                BulletGroup = SystemAPI.GetComponentLookup<BulletTag>(),
+            }.ScheduleParallel();
         }
 
         [BurstCompile]
@@ -30,10 +38,22 @@ namespace Asteroids.ECS.Systems
     [BurstCompile]
     public partial struct TeleporterJob : IJobEntity
     {
+        [ReadOnly] public ComponentLookup<AsteroidTag> AsteroidGroup;
+        [ReadOnly] public ComponentLookup<SmallAsteroidTag> SmallAsteroidGroup;
+        [ReadOnly] public ComponentLookup<PlayerTag> PlayerGroup;
+        [ReadOnly] public ComponentLookup<BulletTag> BulletGroup;
         public MapSizeData MapSize;
 
-        private void Execute(ref LocalTransform transform)
+        private void Execute(ref LocalTransform transform, Entity entity)
         {
+            if (!AsteroidGroup.HasComponent(entity)
+                && !SmallAsteroidGroup.HasComponent(entity)
+                && !PlayerGroup.HasComponent(entity)
+                && !BulletGroup.HasComponent(entity))
+            {
+                return;
+            }
+            
             var pos = transform.Position;
             if (pos.x < MapSize.MinBorder.x)
             {

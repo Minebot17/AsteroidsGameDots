@@ -26,5 +26,9 @@ MonoBehaviour:
     BulletFireCooldown: 0.1
     BulletLifeDuration: 2
     BulletVelocity: 10
+    LaserFireCooldown: 0.5
+    LaserChargeCooldown: 2
+    LaserLifeDuration: 0.2
+    LaserMaxCharges: 4
     ScoreBigAsteroid: 5
     ScoreSmallAsteroid: 2
