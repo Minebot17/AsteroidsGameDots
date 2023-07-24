@@ -15,21 +15,26 @@ namespace Asteroids.ECS.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
-            _hitsList = new NativeList<RaycastHit>(Allocator.Persistent);
+            state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
             state.RequireForUpdate<PhysicsWorldSingleton>();
             state.RequireForUpdate<EndSimulationEntityCommandBufferSystem.Singleton>();
+            
+            _hitsList = new NativeList<RaycastHit>(Allocator.Persistent);
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
             var physicsWorld = SystemAPI.GetSingleton<PhysicsWorldSingleton>();
-            var ecb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
+            var beginEcb = SystemAPI.GetSingleton<BeginSimulationEntityCommandBufferSystem.Singleton>()
+                .CreateCommandBuffer(state.WorldUnmanaged);
+            var endEcb = SystemAPI.GetSingleton<EndSimulationEntityCommandBufferSystem.Singleton>()
                 .CreateCommandBuffer(state.WorldUnmanaged);
 
             new LaserRaycastJob
             {
-                Ecb = ecb,
+                BeginEcb = beginEcb,
+                EndEcb = endEcb,
                 PhysicsWorld = physicsWorld,
                 HitsList = _hitsList
             }.Schedule();
@@ -44,7 +49,8 @@ namespace Asteroids.ECS.Systems
         [BurstCompile]
         public partial struct LaserRaycastJob : IJobEntity
         {
-            public EntityCommandBuffer Ecb;
+            public EntityCommandBuffer BeginEcb;
+            public EntityCommandBuffer EndEcb;
             public PhysicsWorldSingleton PhysicsWorld;
             public NativeList<RaycastHit> HitsList;
 
@@ -69,10 +75,11 @@ namespace Asteroids.ECS.Systems
                 
                 foreach (var hit in HitsList)
                 {
-                    Ecb.DestroyEntity(hit.Entity);
+                    BeginEcb.AddComponent<NeedToDestroyTag>(hit.Entity);
                 }
                 
-                Ecb.RemoveComponent<LaserInitializeTag>(entity);
+                HitsList.Clear();
+                EndEcb.RemoveComponent<LaserInitializeTag>(entity);
             }
         }
     }

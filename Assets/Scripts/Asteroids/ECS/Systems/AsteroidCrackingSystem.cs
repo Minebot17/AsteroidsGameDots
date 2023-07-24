@@ -59,7 +59,8 @@ namespace Asteroids.ECS.Systems
                 Entity asteroidEntity
             ) {
                 var smallAsteroidsVelocityScale = math.length(velocity.Linear) / CrackingSettings.FragmentsCount;
-                EndEcb.DestroyEntity(chunkIndex, asteroidEntity);
+                BeginEcb.AddComponent<NeedToDestroyTag>(chunkIndex, asteroidEntity);
+                EndEcb.RemoveComponent<NeedToCrackAsteroidTag>(chunkIndex, asteroidEntity);
 
                 for (var i = 0; i < CrackingSettings.FragmentsCount; i++)
                 {

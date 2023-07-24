@@ -10,16 +10,26 @@ namespace Asteroids.ECS.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<ScoreData>();
             state.RequireForUpdate<NeedToDestroyTag>();
         }
 
         [BurstCompile]
         public void OnUpdate(ref SystemState state)
         {
+            var score = SystemAPI.GetSingletonRW<ScoreData>();
             var entitiesToDestroy = SystemAPI.QueryBuilder()
                 .WithAll<NeedToDestroyTag>()
                 .Build()
                 .ToEntityArray(Allocator.Temp);
+
+            foreach (var entity in entitiesToDestroy)
+            {
+                if (state.EntityManager.HasComponent<ScoreAddOnDestroyData>(entity))
+                {
+                    score.ValueRW.Score += state.EntityManager.GetComponentData<ScoreAddOnDestroyData>(entity).Value;
+                }
+            }
 
             state.EntityManager.DestroyEntity(entitiesToDestroy);
         }

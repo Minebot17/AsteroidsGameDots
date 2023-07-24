@@ -269,3 +269,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c9266198b4a4fed840a2c853f32bfe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameSettingAsset: {fileID: 11400000, guid: 4f6dfe9297410bc41afb708d751d1522, type: 2}

@@ -26,6 +26,7 @@ namespace Asteroids.UI.ViewModels
         
         private EntityManager _entityManager;
         private Entity _playerEntity;
+        private EntityQuery _scoreDataQuery;
 
         public HudViewModel()
         {
@@ -38,6 +39,10 @@ namespace Asteroids.UI.ViewModels
             _entityManager = World.DefaultGameObjectInjectionWorld.EntityManager;
             var playerQuery = new EntityQueryBuilder(Allocator.Temp)
                 .WithAll<PlayerTag>()
+                .Build(_entityManager);
+
+            _scoreDataQuery = new EntityQueryBuilder(Allocator.Temp)
+                .WithAll<ScoreData>()
                 .Build(_entityManager);
 
             _playerEntity = await playerQuery.WaitUntilSingletonEntityCreated();
@@ -66,6 +71,11 @@ namespace Asteroids.UI.ViewModels
             PositionY.Value = (int) playerTransform.Position.y;
             Angle.Value = playerRotation > 0 ? playerRotation % 360 : 360 + playerRotation % 360;
             Speed.Value = (int) math.length(playerVelocity.Linear);
+
+            if (_scoreDataQuery.TryGetSingleton(out ScoreData scoreData))
+            {
+                Score.Value = scoreData.Score;
+            }
         }
     }
 }

@@ -14,6 +14,7 @@ namespace Asteroids.ECS.Systems
         [BurstCompile]
         public void OnCreate(ref SystemState state)
         {
+            state.RequireForUpdate<GameSettingsData>();
             state.RequireForUpdate<BeginSimulationEntityCommandBufferSystem.Singleton>();
         }
 
@@ -47,6 +48,7 @@ namespace Asteroids.ECS.Systems
             [ReadOnly] public ComponentLookup<AsteroidTag> AsteroidTagGroup;
             [ReadOnly] public ComponentLookup<SmallAsteroidTag> SmallAsteroidTagGroup;
             [ReadOnly] public ComponentLookup<BulletTag> BulletTagGroup;
+            
             public EntityCommandBuffer Ecb;
             
             public void Execute(TriggerEvent triggerEvent)
